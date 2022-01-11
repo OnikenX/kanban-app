@@ -24,7 +24,7 @@ impl State {
         let mut i = 0;
         while states.len() > i {
             if states[i].pergunta_nome == idx {
-                states.remove(idx);
+                states.remove(i);
             } else {
                 i += 1;
             }

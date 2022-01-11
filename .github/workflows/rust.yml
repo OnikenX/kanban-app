@@ -21,9 +21,11 @@ jobs:
     - uses: actions-rs/toolchain@v1
       with:
         profile: minimal
-        toolchain: nightly
+        toolchain: stable
+        
 
     - uses: Swatinem/rust-cache@v1
+      cache-on-failure: true
     - name: setup repo and git
       uses: actions/checkout@v2
       with:
@@ -45,6 +47,7 @@ jobs:
       run: |
         echo copying files...
         cp dist /tmp -r
+        git restore Trunk.toml
         git checkout gh-pages
         find . -maxdepth 1 -not -name .git -not -name . | xargs rm -r
         cp /tmp/dist/* .

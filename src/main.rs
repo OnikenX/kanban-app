@@ -6,7 +6,6 @@ use yew::prelude::*;
 use tasks::Task;
 
 struct Model {
-    link: ComponentLink<Self>,
     state: State,
 }
 
@@ -81,9 +80,9 @@ enum Msg {
 impl Component for Model {
     type Message = Msg;
     type Properties = ();
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(ctx: &Context<Self>) -> Self {
+        
         Model {
-            link,
             state: State {
                 tasks: tasks::Task::get_tasks(),
                 state_resposta: vec![],
@@ -91,7 +90,7 @@ impl Component for Model {
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::IncreaseStatus(idx) => self.state.increase_status(idx),
             Msg::DecreaseStatus(idx) => self.state.decrease_status(idx),
@@ -103,14 +102,12 @@ impl Component for Model {
         true
     }
 
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-        // Should only return "true" if new properties are different to
-        // previously received properties.
-        // This component has no properties so we will always return "false".
-        false
-    }
 
-    fn view(&self) -> Html {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {}
+
+    fn destroy(&mut self, ctx: &Context<Self>) {}
+
+    fn view(&self, ctx: &Context<Self>) -> Html {
         html! {
             <>
                 <section class="section">
@@ -120,50 +117,46 @@ impl Component for Model {
                         </h1>
                     </div>
                 </section>
-                {self.main_content()}
+                {self.main_content(ctx)}
             </>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {}
-
-    fn destroy(&mut self) {}
+  
 }
 
 impl Model {
-    fn main_content(&self) -> Html {
+    fn main_content(&self, ctx: &Context<Self>) -> Html {
         if self.state.tasks.iter().any(|e| e.status == 2) {
             html! {
                 <div class="columns">
                     <div class="column">
-                        { self.view_kanban()}
+                        { self.view_kanban(ctx)}
                     </div>
                     <div class="column" id="perguntas">
-                        {self.view_perguntas()}
+                        {self.view_perguntas(ctx)}
                     </div >
                 </div>
             }
         } else {
             html! {
-                {self.view_kanban()}
+                {self.view_kanban(ctx)}
             }
         }
     }
 
-    fn view_column(&self, status: u32, status_text: &str, tasks: &Vec<Task>) -> Html {
+    fn view_column(&self, ctx: &Context<Self>, status: u32, status_text: &str, tasks: &Vec<Task>) -> Html {
         html! {
             <div class={format!("column status-{}", status)}>
                 <div class="tags has-addons">
                     <span class="tag">{ status_text }</span> <span class="tag is-dark">{ tasks.iter().filter(|e| e.status == status).count() }</span>
                 </div>
-                { for tasks.iter().enumerate().filter(|e| e.1.status == status).map(|e| self.view_task(e)) }
+                { for tasks.iter().enumerate().filter(|e| e.1.status == status).map(|e| self.view_task(ctx, e)) }
             </div>
         }
     }
 }
 
 fn main() {
-    yew::initialize();
-    App::<Model>::new().mount_to_body();
-    yew::run_loop();
+    yew::start_app::<Model>();
 }

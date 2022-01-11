@@ -25,7 +25,6 @@ jobs:
         
 
     - uses: Swatinem/rust-cache@v1
-      cache-on-failure: true
     - name: setup repo and git
       uses: actions/checkout@v2
       with:

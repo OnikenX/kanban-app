@@ -39,6 +39,9 @@ jobs:
         rustup target add wasm32-unknown-unknown
     - name: builds with trunk
       run: ./trunk build --release
+    - name: create gh-pages branch if it does not exist
+      run: git branch gh-pages
+      if: always()
     - name: move files and switch branches
       run: |
         echo copying files...
@@ -46,11 +49,14 @@ jobs:
         git checkout gh-pages
         find . -maxdepth 1 -not -name .git -not -name . | xargs rm -r
         cp /tmp/dist/* .
+      if: always()
     - name:  updates gh-pages repo
       run: |
         git status
         git add -A
         git commit -am "update"
         git push
+      if: always()
+
       
     

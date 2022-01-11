@@ -2,11 +2,8 @@ mod kanban;
 mod perguntas;
 mod tasks;
 
-#[macro_use]
 use yew::prelude::*;
-use std::str::FromStr;
-use tasks::{Pergunta, Task};
-use yew::services::ConsoleService as console;
+use tasks::Task;
 
 struct Model {
     link: ComponentLink<Self>,
@@ -60,7 +57,7 @@ impl State {
 
         let task = self.tasks.get(task_idx);
         if task.is_none() {
-            console::log(format!("A task nº {} n existe.", task_idx).as_str());
+            return;
         }
 
         let pergunta = &task.unwrap().pergunta;
@@ -155,7 +152,7 @@ impl Model {
 
     fn view_column(&self, status: u32, status_text: &str, tasks: &Vec<Task>) -> Html {
         html! {
-            <div class=format!("column status-{}", status)>
+            <div class={format!("column status-{}", status)}>
                 <div class="tags has-addons">
                     <span class="tag">{ status_text }</span> <span class="tag is-dark">{ tasks.iter().filter(|e| e.status == status).count() }</span>
                 </div>

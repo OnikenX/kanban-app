@@ -2,12 +2,12 @@ mod kanban;
 mod perguntas;
 mod tasks;
 
+use tasks::Task;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use tasks::Task;
 
 #[wasm_bindgen]
-extern {
+extern "C" {
     fn alert(s: &str);
 }
 struct Model {
@@ -37,12 +37,15 @@ impl State {
     }
 
     fn increase_status(&mut self, idx: usize) {
-        if self.tasks.iter().filter(|t| t.status == 2).count() >= 3{
-            alert("Não podes ter mais do que 3 tasks a fazer.");
-            return;
-        }
+        let n_in_status_2 = self.tasks.iter().filter(|t| t.status == 2).count();
 
         self.tasks.get_mut(idx).filter(|e| e.status < 3).map(|e| {
+            if e.status == 1 {
+                if n_in_status_2 >= 3 {
+                    alert("Não podes ter mais do que 3 tasks a fazer.");
+                    return;
+                }
+            }
             e.status = e.status + 1;
             State::remove_responses_states(&mut self.state_resposta, idx);
         });
@@ -70,12 +73,12 @@ impl State {
         }
 
         let pergunta = &task.unwrap().pergunta;
-        if pergunta.certa-1 != resp_idx {
+        if pergunta.certa - 1 != resp_idx {
             self.state_resposta.push(Resposta_Status {
                 pergunta_nome: task_idx,
                 resposta_index: resp_idx,
             });
-        }else{
+        } else {
             self.increase_status(task_idx);
         }
     }
@@ -91,7 +94,6 @@ impl Component for Model {
     type Message = Msg;
     type Properties = ();
     fn create(ctx: &Context<Self>) -> Self {
-        
         Model {
             state: State {
                 tasks: tasks::Task::get_tasks(),
@@ -112,7 +114,6 @@ impl Component for Model {
         true
     }
 
-
     fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {}
 
     fn destroy(&mut self, ctx: &Context<Self>) {}
@@ -131,8 +132,6 @@ impl Component for Model {
             </>
         }
     }
-
-  
 }
 
 impl Model {
@@ -155,7 +154,13 @@ impl Model {
         }
     }
 
-    fn view_column(&self, ctx: &Context<Self>, status: u32, status_text: &str, tasks: &Vec<Task>) -> Html {
+    fn view_column(
+        &self,
+        ctx: &Context<Self>,
+        status: u32,
+        status_text: &str,
+        tasks: &Vec<Task>,
+    ) -> Html {
         html! {
             <div class={format!("column status-{}", status)}>
                 <div class="tags has-addons">

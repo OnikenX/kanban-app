@@ -2,9 +2,14 @@ mod kanban;
 mod perguntas;
 mod tasks;
 
+use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use tasks::Task;
 
+#[wasm_bindgen]
+extern {
+    fn alert(s: &str);
+}
 struct Model {
     state: State,
 }
@@ -32,6 +37,11 @@ impl State {
     }
 
     fn increase_status(&mut self, idx: usize) {
+        if self.tasks.iter().filter(|t| t.status == 2).count() >= 3{
+            alert("Não podes ter mais do que 3 tasks a fazer.");
+            return;
+        }
+
         self.tasks.get_mut(idx).filter(|e| e.status < 3).map(|e| {
             e.status = e.status + 1;
             State::remove_responses_states(&mut self.state_resposta, idx);

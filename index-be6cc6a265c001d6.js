@@ -270,10 +270,13 @@ async function load(module, imports) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('index-692a625bd25d1bb_bg.wasm', import.meta.url);
+        input = new URL('index-be6cc6a265c001d6_bg.wasm', import.meta.url);
     }
     const imports = {};
     imports.wbg = {};
+    imports.wbg.__wbg_alert_a9209ca9b3498b28 = function(arg0, arg1) {
+        alert(getStringFromWasm0(arg0, arg1));
+    };
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
         takeObject(arg0);
     };
@@ -474,8 +477,8 @@ async function init(input) {
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper225 = function(arg0, arg1, arg2) {
-        var ret = makeClosure(arg0, arg1, 60, __wbg_adapter_18);
+    imports.wbg.__wbindgen_closure_wrapper226 = function(arg0, arg1, arg2) {
+        var ret = makeClosure(arg0, arg1, 59, __wbg_adapter_18);
         return addHeapObject(ret);
     };
 

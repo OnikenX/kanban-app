@@ -28,21 +28,21 @@ impl Task {
                 certa: 1,
             },
         },
-        Task {
-            assignee: "🐯".to_string(),
-            estimate: 3,
-            status: 1,
-            pergunta: Pergunta {
-                questao: "Um feedback loop é:".to_string(),
-                respostas: vec![
-                    "Uma reunião no fim do projeto para retrospetiva".to_string(),
-                    "Uma reunião com os stakeholders".to_string(),
-                    "Um ciclo de trabalho com vista à conclusão de determinada tarefa".to_string(),
-                    "Uma reunião diária para sincronização da equipa".to_string(),
-                ],
-                certa: 4,
-            },
-        },
+        // Task {
+        //     assignee: "🐯".to_string(),
+        //     estimate: 3,
+        //     status: 1,
+        //     pergunta: Pergunta {
+        //         questao: "Um feedback loop é:".to_string(),
+        //         respostas: vec![
+        //             "Uma reunião no fim do projeto para retrospetiva".to_string(),
+        //             "Uma reunião com os stakeholders".to_string(),
+        //             "Um ciclo de trabalho com vista à conclusão de determinada tarefa".to_string(),
+        //             "Uma reunião diária para sincronização da equipa".to_string(),
+        //         ],
+        //         certa: 4,
+        //     },
+        // },
         Task {
             assignee: "🐫".to_string(),
             estimate: 30,

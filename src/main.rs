@@ -148,9 +148,7 @@ impl Model {
                 </div>
             }
         } else {
-            html! {
-                {self.view_kanban(ctx)}
-            }
+                self.view_kanban(ctx)            
         }
     }
 

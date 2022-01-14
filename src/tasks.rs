@@ -78,15 +78,31 @@ impl Task {
             estimate: 10,
             status: 1,
             pergunta: Pergunta {
-                questao: "Qual destas vantagens o Kanban pode adicionar ao Scrum, quando utilizados em conjunto?".to_string(),
+                questao: "Kanban é um método sobretudo:".to_string(),
                 respostas: vec![
-                    "Facilidade na realização do Product Backlog".to_string(),
-                    "Facilidade na definição dos requisitos".to_string(),
-                    "Visualização da produtividade individual de cada membro".to_string(),
+                    "Visual".to_string(),
+                    "Documentado".to_string(),
+                    "Estático".to_string(),
                 ],
-                certa: 3,
+                certa: 1,
             },
         },
+
+
+        // Task {
+        //     assignee: "🦉".to_string(),
+        //     estimate: 10,
+        //     status: 1,
+        //     pergunta: Pergunta {
+        //         questao: "Qual destas vantagens o Kanban pode adicionar ao Scrum, quando utilizados em conjunto?".to_string(),
+        //         respostas: vec![
+        //             "Facilidade na realização do Product Backlog".to_string(),
+        //             "Facilidade na definição dos requisitos".to_string(),
+        //             "Visualização da produtividade individual de cada membro".to_string(),
+        //         ],
+        //         certa: 3,
+        //     },
+        // },
 
         Task {
             assignee: "🦂".to_string(),

@@ -159,12 +159,19 @@ impl Model {
         status_text: &str,
         tasks: &Vec<Task>,
     ) -> Html {
+        let count = tasks.iter().filter(|e| e.status == status).count();
+        let counter = if status ==2{
+            format!("{count}/3")
+        }else{
+            format!("{count}")
+        };
+
         html! {
             <div class={format!("column status-{}", status)}>
                 <div class="tags has-addons">
-                    <span class="tag">{ status_text }</span> <span class="tag is-dark">{ tasks.iter().filter(|e| e.status == status).count() }</span>
+                    <span class="tag">{ status_text }</span> <span class="tag is-dark">{counter}</span>
                 </div>
-                { for tasks.iter().enumerate().filter(|e| e.1.status == status).map(|e| self.view_task(ctx, e)) }
+                    { for tasks.iter().enumerate().filter(|e| e.1.status == status).map(|e| self.view_task(ctx, e)) }
             </div>
         }
     }

@@ -21,6 +21,7 @@ impl Model {
         }
     }
 
+    
     pub fn view_task(&self, ctx: &Context<Self>, (idx, task): (usize, &Task)) -> Html {
         let pergunta_nome = format! {"Pergunta {}", idx+1};
         let button = || {

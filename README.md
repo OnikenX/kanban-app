@@ -1,5 +1,5 @@
-#  lok2-web
+#  kanban-app
 
-Web interface for [lok2](https://github.com/OnikenX/lok2)
+Este é um projeto para a cadeira de MDS.
 
-You can visit it [where](https://onikenx.github.io/lok2-web/).
+Podes experimentar este projeto [aqui](https://onikenx.github.io/kanban-app/).

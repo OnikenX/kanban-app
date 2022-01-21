@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use crate::{Model, tasks::Task, Msg};
+use crate::{tasks::Task, Model, Msg};
 
 //views related to the kanban
 
@@ -21,21 +21,23 @@ impl Model {
         }
     }
 
-    pub fn view_task(&self,ctx: &Context<Self>, (idx, task): (usize, &Task)) -> Html {
+    pub fn view_task(&self, ctx: &Context<Self>, (idx, task): (usize, &Task)) -> Html {
         let pergunta_nome = format! {"Pergunta {}", idx+1};
         let button = || {
-            if task.status == 1{
-                html!{
+            if task.status == 1 {
+                html! {
                     <a class="card-footer-item" onclick={ctx.link().callback(move |_| Msg::IncreaseStatus(idx))}>{ "▶︎︎" }</a>
                 }
-            }else if task.status == 2{
-                html!{
+            } else if task.status == 2 {
+                html! {
                     <a  class="card-footer-item" onclick={ctx.link().callback(move |_| Msg::DecreaseStatus(idx))}>{ "◀︎︎" }</a>
                 }
-            }else{
-                html!{}
+            } else {
+                html! {}
             }
         };
+        
+        // let card_values = format!("card {}",if task.status == 3 || ctx. { "animate__animated animate__fadeIn" } else { "" });
         
         html! {
             <div class="card">

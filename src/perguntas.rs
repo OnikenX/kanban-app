@@ -10,7 +10,6 @@ impl Model {
     pub fn view_perguntas(&self, ctx: &Context<Self>) -> Html {
         html! {
             <div class="section">
-
                 {for self.state.tasks.iter().enumerate().filter(|e| e.1.status == 2).map(|e| self.view_pergunta(ctx, e.0, &e.1.pergunta))}
             </div>
         }
@@ -18,7 +17,7 @@ impl Model {
 
     pub fn view_pergunta(&self, ctx: &Context<Self>, task_nome: usize, pergunta: &Pergunta) -> Html {
         html! {
-            <div class="card animate__animated animate__bounce">
+            <div class="card animate__animated animate__fadeIn">
                 <div class="card-content">
                     { &pergunta.questao }
                 </div>

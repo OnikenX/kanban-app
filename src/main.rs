@@ -17,12 +17,15 @@ struct Model {
 struct State {
     tasks: Vec<Task>,
     state_resposta: Vec<Resposta_Status>,
+    done : Vec<usize>,
 }
 
 pub struct Resposta_Status {
     pergunta_nome: usize,
     resposta_index: usize,
 }
+
+
 
 impl State {
     fn remove_responses_states(states: &mut Vec<Resposta_Status>, idx: usize) {
@@ -57,6 +60,10 @@ impl State {
             State::remove_responses_states(&mut self.state_resposta, idx);
         });
     }
+
+
+
+    
 
     fn verificar_resposta(&mut self, task_idx: usize, resp_idx: usize) {
         if self
@@ -98,6 +105,7 @@ impl Component for Model {
             state: State {
                 tasks: tasks::Task::get_tasks(),
                 state_resposta: vec![],
+                done: vec![],
             },
         }
     }
@@ -165,7 +173,7 @@ impl Model {
         }else{
             format!("{count}")
         };
-
+        
         html! {
             <div class={format!("column status-{}", status)}>
                 <div class="tags has-addons">

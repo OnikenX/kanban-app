@@ -39,6 +39,7 @@ impl State {
         }
     }
 
+    
     fn increase_status(&mut self, idx: usize) {
         let n_in_status_2 = self.tasks.iter().filter(|t| t.status == 2).count();
 
@@ -63,7 +64,7 @@ impl State {
 
 
 
-    
+
 
     fn verificar_resposta(&mut self, task_idx: usize, resp_idx: usize) {
         if self
